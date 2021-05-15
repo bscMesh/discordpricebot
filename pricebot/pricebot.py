@@ -126,7 +126,7 @@ class PriceBot(commands.Bot):
         except ZeroDivisionError:
             final_price = 0
 
-        return final_price
+        return final_price * 10 ** 9
 
     def get_token_price(self):
         return self.get_price(self.contracts['token'], self.token['lp'], self.amm['address']).quantize(self.display_precision)
@@ -138,14 +138,15 @@ class PriceBot(commands.Bot):
         try:
             total_supply = self.contracts['lp'].functions.totalSupply().call()
             values = [Decimal(self.token_amount / total_supply), Decimal(self.bnb_amount / total_supply)]
-            lp_price = self.current_price * values[0] * 2
+            lp_price = self.current_price * values[0] * 2 / (10 ** 9)
 
-            return f"LP ≈${round(lp_price, 2)} | {round(values[0], 4)} {self.token['icon']} + {round(values[1], 4)} BNB"
+            return f"LP ≈${round(lp_price, 2)} | {round(values[0], 4)} {self.token['name']} + {round(values[1], 4)} BNB"
         except ValueError:
             pass
 
     def generate_nickname(self):
-        return f"{self.token['icon']} ${self.current_price:.4f} ({round(self.bnb_amount / self.token_amount, 4):.4f})"
+        offset_price = self.current_price
+        return f"1b {self.token['name']} ${offset_price:.4f}"
 
     async def get_lp_value(self):
         self.total_supply = self.contracts['lp'].functions.totalSupply().call()
