@@ -5,7 +5,7 @@ import yaml
 
 bots = {}
 
-with open('config.yaml') as cfg_file:
+with open('config.yaml',encoding="utf-8") as cfg_file:
     cfg_data = yaml.safe_load(cfg_file)
 
 cfg_defaults = cfg_data.pop('_config')
