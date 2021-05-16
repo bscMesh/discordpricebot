@@ -2,6 +2,7 @@ import sys
 import importlib
 from pricebot import pricebot
 import yaml
+import os
 
 bots = {}
 
@@ -19,6 +20,9 @@ if sys.argv[1] and cfg_data.get(sys.argv[1]):
 else:
     raise Exception(f"Token {sys.argv[1]} does not exist in configuration!")
 
+
+api = os.environ.get('APIKEY','not defined')
+
 for cfg_name, cfg_info in cfg_data.items():
     token = cfg_info.get('token')
     if not token:
@@ -32,7 +36,7 @@ for cfg_name, cfg_info in cfg_data.items():
     if config.get('plugin'):
         try:
             module = importlib.import_module(config['plugin'])
-            bots[cfg_name] = module.PriceBot(config, token)
+            bots[cfg_name] = module.PriceBot(config, token, api)
         except ModuleNotFoundError as e:
             print(f"Token {cfg_name} has an invalid plugin configuration!", e)
             sys.exit()
@@ -40,6 +44,6 @@ for cfg_name, cfg_info in cfg_data.items():
             print(f"The plugin for {cfg_name} must be named PriceBot!")
             sys.exit()
     else:
-        bots[cfg_name] = pricebot.PriceBot(config, token)
+        bots[cfg_name] = pricebot.PriceBot(config, token, api)
 
     bots[cfg_name].exec()

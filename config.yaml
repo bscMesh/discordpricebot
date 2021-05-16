@@ -1,0 +1,17 @@
+---
+_config:
+  amm: # Identification for multiple AMMs
+    pancakeswap:
+      address: '0x1B96B92314C44b159149f7E0303511fB2Fc4774f'
+      name: PancakeSwap
+  bnb_emoji: <:bnb:794297484473532447> # External emoji for BNB if used on multiple servers
+  refresh_rate: 15 # How often prices refresh
+  bsc_node: https://bsc-dataseed2.binance.org # HTTP RPC or local RPC path
+METAMOON:
+  token:
+    #apikey:  # Discord API Key
+    contract: '0xA1A0C7849e6916945a78F8AF843738c051ab15F3' # Token Contract
+    lp: '0x083c7943500fB5bd5338439fD0A7EC6Fb202072D' # BNB/[Token] LP Pair Contract
+    from: pancakeswap # Follows keys from _config.amm
+  config:
+    refresh_rate: 30 # Overriding refresh rate

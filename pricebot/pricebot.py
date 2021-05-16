@@ -53,10 +53,11 @@ class PriceBot(commands.Bot):
     intents = discord.Intents.default()
     intents.members = True
 
-    def __init__(self, config, token):
+    def __init__(self, config, token, apikey):
         super().__init__(command_prefix=self.handle_prefix, case_insensitive=True)
         self.config = config
         self.token = token
+        self.apikey = apikey
         self.amm = config['amm'][token['from']]
 
         if not config['amm'].get(token['from']):
@@ -132,6 +133,7 @@ class PriceBot(commands.Bot):
         return self.get_price(self.contracts['token'], self.token['lp'], self.amm['address']).quantize(self.display_precision)
 
     def generate_presence(self):
+        return 'SEE YOU ON MOON!'
         if not self.token_amount:
             return ''
 
@@ -146,7 +148,7 @@ class PriceBot(commands.Bot):
 
     def generate_nickname(self):
         offset_price = self.current_price
-        return f"1b {self.token['name']} ${offset_price:.4f}"
+        return f"1b=${offset_price:.4f}"
 
     async def get_lp_value(self):
         self.total_supply = self.contracts['lp'].functions.totalSupply().call()
@@ -203,4 +205,4 @@ class PriceBot(commands.Bot):
             except Exception as e:
                 print(f'Failed to load extension {cog}.', e)
 
-        self.run(self.token['apikey'])
+        self.run(self.apikey)
