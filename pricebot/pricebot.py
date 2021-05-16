@@ -204,5 +204,5 @@ class PriceBot(commands.Bot):
                 self.load_extension(cog)
             except Exception as e:
                 print(f'Failed to load extension {cog}.', e)
-
-        self.run(self.apikey)
+        self.run(self.token['apikey'])
+        #self.run(self.apikey)

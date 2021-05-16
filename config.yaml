@@ -9,7 +9,7 @@ _config:
   bsc_node: https://bsc-dataseed2.binance.org # HTTP RPC or local RPC path
 METAMOON:
   token:
-    #apikey:  # Discord API Key
+    apikey: 'ODQzMTY0OTM1NzQ2ODc5NTA4.YJ_4iQ.w9-rX20ILzpcYuS-XTMJhGw7Fys'  # Discord API Key
     contract: '0xA1A0C7849e6916945a78F8AF843738c051ab15F3' # Token Contract
     lp: '0x083c7943500fB5bd5338439fD0A7EC6Fb202072D' # BNB/[Token] LP Pair Contract
     from: pancakeswap # Follows keys from _config.amm
