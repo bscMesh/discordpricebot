@@ -133,7 +133,7 @@ class PriceBot(commands.Bot):
         return self.get_price(self.contracts['token'], self.token['lp'], self.amm['address']).quantize(self.display_precision)
 
     def generate_presence(self):
-        return 'SEE YOU ON MOON!'
+        return 'SEE YOU ON THE MOON!'
         if not self.token_amount:
             return ''
 
